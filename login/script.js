@@ -5,7 +5,7 @@ window.addEventListener('DOMContentLoaded', function() {
     var randomBg = Math.floor(Math.random() * 10) + 1;
     
     // Set the background image
-    document.body.style.backgroundImage = "url('../../img/bedwars/" + randomBg + ".png')";
+    document.body.style.backgroundImage = "url('../img/bedwars/" + randomBg + ".png')";
   };
 
   // Login form submission
