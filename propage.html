@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Protected Page | Dan Aleko</title>
+</head>
+<body>
+  <h1>Welcome to the Protected Page</h1>
+  <p>This page is only accessible when you are logged in.</p>
+
+  <script>
+    // Check if the user is logged in
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+
+    // If the user is not logged in, redirect to the login page
+    if (!isLoggedIn) {
+      window.location.href = '/login.html'; // Change to the actual login page URL
+    }
+  </script>
+</body>
+</html>
