@@ -29,7 +29,6 @@
             .then(data => {
                 // Store the received token securely
                 localStorage.setItem('accessToken', data.token);
-                console.log('The Token is:', data.token)
                 // Redirect or perform other actions after successful login
                 window.location.href = '/dashboard.html';
             })
@@ -39,6 +38,19 @@
                 alert('Login failed. Please try again.');
             });
         }
+
+        // Function to check for token and perform automatic login
+        function autoLogin() {
+            const token = localStorage.getItem('accessToken');
+            if (token) {
+                // Perform token verification here (not implemented in this example)
+                // For simplicity, we assume the token is valid and redirect to the dashboard
+                window.location.href = '/dashboard.html';
+            }
+        }
+
+        // Check for token and perform automatic login on page load
+        document.addEventListener('DOMContentLoaded', autoLogin);
 
         // Event listener for form submission
         document.getElementById('loginForm').addEventListener('submit', function(event) {
