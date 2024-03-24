@@ -16,39 +16,9 @@
     </form>
 
     <script>
-        // Function to check for login parameter and redirect to appropriate page
-        function checkLoginParameter() {
-            const params = new URLSearchParams(window.location.search);
-            const loginValue = params.get('login');
-            if (loginValue === 'shop') {
-                // Redirect to page 1 if login parameter is set to 1
-                window.location.href = '/shop.html';
-            } else if (loginValue === 'stellar') {
-                // Redirect to page 2 if login parameter is set to 2
-                window.location.href = '/stellar.html';
-            } else {
-                const token = localStorage.getItem('accessToken');
-                if (token) {
-                    if (loginValue === 'shop') {
-                        window.location.href = '/shop.html';
-                    } else if (loginValue === 'stellar') {
-                        window.location.href = '/stellar.html';
-                    } else {
-                        window.location.href = '/site';
-                    }
-                }
-            }
-        }
-
-
-
-
-        // Check for login parameter and redirect to appropriate page on page load
-        document.addEventListener('DOMContentLoaded', checkLoginParameter);
-
         // Function to handle login
         function login(username, password) {
-            fetch('https://mcdonelts.city/login', {
+            fetch('https://your-api.com/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -59,7 +29,8 @@
             .then(data => {
                 // Store the received token securely
                 localStorage.setItem('accessToken', data.token);
-                checkLoginParameter()
+                // Redirect to the appropriate page based on the login parameter or token
+                redirectToPage();
             })
             .catch(error => {
                 console.error('Login failed:', error);
@@ -67,6 +38,29 @@
                 alert('Login failed. Please try again.');
             });
         }
+
+        // Function to redirect to the appropriate page based on the login parameter or token
+        function redirectToPage() {
+            const params = new URLSearchParams(window.location.search);
+            const loginValue = params.get('login');
+            if (loginValue === '1') {
+                // Redirect to page 1 if login parameter is set to 1
+                window.location.href = '/page1.html';
+            } else if (loginValue === '2') {
+                // Redirect to page 2 if login parameter is set to 2
+                window.location.href = '/page2.html';
+            } else {
+                // Check if a token exists
+                const token = localStorage.getItem('accessToken');
+                if (token) {
+                    // Redirect to the default page if no login parameter is specified and token exists
+                    window.location.href = '/dashboard.html';
+                }
+            }
+        }
+
+        // Check for login parameter and redirect to appropriate page on page load
+        document.addEventListener('DOMContentLoaded', redirectToPage);
 
         // Event listener for form submission
         document.getElementById('loginForm').addEventListener('submit', function(event) {
