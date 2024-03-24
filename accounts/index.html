@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+</head>
+<body>
+    <h2>Login</h2>
+    <form id="loginForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username"><br><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password"><br><br>
+        <button type="submit">Login</button>
+    </form>
+
+    <script>
+        // Function to check for login parameter and redirect to appropriate page
+        function checkLoginParameter() {
+            const params = new URLSearchParams(window.location.search);
+            const loginValue = params.get('login');
+            if (loginValue === 'shop') {
+                // Redirect to page 1 if login parameter is set to 1
+                window.location.href = '/shop.html';
+            } else if (loginValue === 'stellar') {
+                // Redirect to page 2 if login parameter is set to 2
+                window.location.href = '/stellar.html';
+            } else {
+                const token = localStorage.getItem('accessToken');
+                if (token) {
+                    if (loginValue === 'shop') {
+                        window.location.href = '/shop.html';
+                    } else if (loginValue === 'stellar') {
+                        window.location.href = '/stellar.html';
+                    } else {
+                        window.location.href = '/site';
+                    }
+                }
+            }
+        }
+
+
+
+
+        // Check for login parameter and redirect to appropriate page on page load
+        document.addEventListener('DOMContentLoaded', checkLoginParameter);
+
+        // Function to handle login
+        function login(username, password) {
+            fetch('https://mcdonelts.city/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Store the received token securely
+                localStorage.setItem('accessToken', data.token);
+                checkLoginParameter()
+            })
+            .catch(error => {
+                console.error('Login failed:', error);
+                // Handle login failure
+                alert('Login failed. Please try again.');
+            });
+        }
+
+        // Event listener for form submission
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Call login function with username and password
+            login(username, password);
+        });
+    </script>
+</body>
+</html>
