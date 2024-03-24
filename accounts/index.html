@@ -18,7 +18,7 @@
     <script>
         // Function to handle login
         function login(username, password) {
-            fetch('https://your-api.com/login', {
+            fetch('https://mcdonelts.city/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -45,16 +45,16 @@
             const loginValue = params.get('login');
             if (loginValue === '1') {
                 // Redirect to page 1 if login parameter is set to 1
-                window.location.href = '/page1.html';
+                window.location.href = '/shop.html';
             } else if (loginValue === '2') {
                 // Redirect to page 2 if login parameter is set to 2
-                window.location.href = '/page2.html';
+                window.location.href = '/stellar.html';
             } else {
                 // Check if a token exists
                 const token = localStorage.getItem('accessToken');
                 if (token) {
                     // Redirect to the default page if no login parameter is specified and token exists
-                    window.location.href = '/dashboard.html';
+                    window.location.href = '/accounts/dashboard.html';
                 }
             }
         }
